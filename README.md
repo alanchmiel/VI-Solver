@@ -32,6 +32,7 @@ A number of domains are included in the VISolver python package:
 
 - BloodBank: A blood banking network as described in [1].
 
+The original paper for "bloodbank is here" https://supernet.isenberg.umass.edu/articles/bloodsupplychaindesign.pdf
 *Optimization*
 
 - Sphere: Simply represents L2 distance from the origin.  Minimum is the origin.
