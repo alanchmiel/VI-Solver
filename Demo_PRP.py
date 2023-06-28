@@ -19,7 +19,7 @@ def Demo():
 
     # Define Network and Domain
     #Network = CreateRandomNetwork(nC=2,nB=2,nD=2,nR=2,seed=0)
-    Network = CreateNetworkExample(ex=1)
+    Network = CreateNetworkExample(ex=3)
     Domain = PRP(Network=Network,alpha=2)
 
     # Set Method
