@@ -1,8 +1,7 @@
 import time
 import numpy as np
 
-from VISolver.Domains.BloodBank import BloodBank, CreateNetworkExample
-#from VISolver.Domains.playground import playground, CreateNetworkExample
+from VISolver.Domains.playground import playground, CreateNetworkExample
 
 from VISolver.Solvers.CashKarp import CashKarp
 

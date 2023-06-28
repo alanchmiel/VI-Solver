@@ -11,10 +11,10 @@ from VISolver.Domain import Domain
 
 class BloodBank(Domain):
 
-    def __init__(self,Network,alpha=2): # This is probably only really 
-        self.UnpackNetwork(Network) # important for the random example... 
-        self.Network = (self.nC,self.nB,self.nD,self.nR) # Might not need to 
-        self.Dim = self.CalculateNetworkSize() # do anything here?
+    def __init__(self,Network,alpha=2):
+        self.UnpackNetwork(Network)
+        self.Network = (self.nC,self.nB,self.nD,self.nR)
+        self.Dim = self.CalculateNetworkSize()
         self.alpha = alpha
 
         self.cmap = cm.Reds
@@ -508,24 +508,24 @@ def CreateNetworkExample(ex=1):
     # Example 1 from Nagurney's Supply Chain Network Design
     # of a Sustainable Blood Banking System
 
-    nC = 2 #Set the width of each stage
+    nC = 2
     nB = 2
-    nP = 2
-    nS = 2
+    nP = nB
+    nS = nP
     nD = 2
     nR = 3
-
-    alpha_1C = np.zeros((nC,))   #create rowsxcolumns matrix (2x1)
-    alpha_CB = np.zeros((nC,nB)) #(2x2)
-    alpha_BP = np.zeros((nP,))   #These matrices hold the "loss" ... what per-
-    alpha_PS = np.zeros((nS,))   #cent is lost between nodes
+# Note that alpha is a "waste" function... or shrinkage . 1 would be No waste.
+    alpha_1C = np.zeros((nC,)) # creates nxm zeros matrix 
+    alpha_CB = np.zeros((nC,nB))
+    alpha_BP = np.zeros((nP,))
+    alpha_PS = np.zeros((nS,))
     alpha_SD = np.zeros((nS,nD))
     alpha_DR = np.zeros((nD,nR))
 
-    alpha_1C[0] = .97 # Link 1
-    alpha_1C[1] = .99 # Link 2
-    alpha_CB[0,0] = 1.# Link 3 C1 to B1
-    alpha_CB[0,1] = .99 # Link 4 C1 to B2
+    alpha_1C[0] = .97
+    alpha_1C[1] = .99
+    alpha_CB[0,0] = 1.
+    alpha_CB[0,1] = .99
     alpha_CB[1,0] = 1.
     alpha_CB[1,1] = 1.
     alpha_BP[0] = .92
@@ -543,15 +543,15 @@ def CreateNetworkExample(ex=1):
     alpha_DR[1,0] = 1.
     alpha_DR[1,1] = 1.
     alpha_DR[1,2] = .98
-
-    chat_pow1_1C = np.zeros((nC,)) # These are the coefficients for the 
-    chat_pow1_CB = np.zeros((nC,nB)) # Operational costs - in the form
-    chat_pow1_BP = np.zeros((nP,))   # k_0f^2+k_1f
+    # chat is the total operational cost. 
+    chat_pow1_1C = np.zeros((nC,)) # Not exp. from 1 to C
+    chat_pow1_CB = np.zeros((nC,nB))
+    chat_pow1_BP = np.zeros((nP,))
     chat_pow1_PS = np.zeros((nS,))
     chat_pow1_SD = np.zeros((nS,nD))
     chat_pow1_DR = np.zeros((nD,nR))
 
-    chat_pow2_1C = np.zeros((nC,))   #pow2 is the f^2 K
+    chat_pow2_1C = np.zeros((nC,)) # exponential from 1 to c
     chat_pow2_CB = np.zeros((nC,nB))
     chat_pow2_BP = np.zeros((nP,))
     chat_pow2_PS = np.zeros((nS,))
@@ -562,13 +562,13 @@ def CreateNetworkExample(ex=1):
     chat_pow2_1C[0] = 6.
     chat_pow1_1C[1] = 11.
     chat_pow2_1C[1] = 9.
-    chat_pow1_CB[0,0] = 1.
-    chat_pow2_CB[0,0] = .7
-    chat_pow1_CB[0,1] = 1.
-    chat_pow2_CB[0,1] = 1.2
-    chat_pow1_CB[1,0] = 3.
+    chat_pow1_CB[0,0] = 1. #C1 to B1
+    chat_pow2_CB[0,0] = .7 #C1 to B1
+    chat_pow1_CB[0,1] = 1. #C1 to B2
+    chat_pow2_CB[0,1] = 1.2 #C1 to B2
+    chat_pow1_CB[1,0] = 3. #c2 to B1
     chat_pow2_CB[1,0] = 1.
-    chat_pow1_CB[1,1] = 2.
+    chat_pow1_CB[1,1] = 2. #c2 to B2
     chat_pow2_CB[1,1] = .8
     chat_pow1_BP[0] = 2.
     chat_pow2_BP[0] = 2.5
@@ -598,8 +598,8 @@ def CreateNetworkExample(ex=1):
     chat_pow2_DR[1,1] = .6
     chat_pow1_DR[1,2] = 5.
     chat_pow2_DR[1,2] = 1.1
-
-    zhat_1C = np.zeros((nC,)) #This is the discard cost function 
+# This is a waste costs. Or the cost of disposal. I may not need any of this?
+    zhat_1C = np.zeros((nC,))
     zhat_CB = np.zeros((nC,nB))
     zhat_BP = np.zeros((nP,))
     zhat_PS = np.zeros((nS,))
@@ -626,9 +626,9 @@ def CreateNetworkExample(ex=1):
     zhat_DR[1,0] = .7
     zhat_DR[1,1] = .4
     zhat_DR[1,2] = .5
-
-    pihat_pow1_1C = np.zeros((nC,)) # This is the cost to add capacity
-    pihat_pow1_CB = np.zeros((nC,nB)) # This could be used as a refinery cost add
+    # This would be the cost of adding capacity. For our example, this would be the cost of creating a refinary. 
+    pihat_pow1_1C = np.zeros((nC,))
+    pihat_pow1_CB = np.zeros((nC,nB))
     pihat_pow1_BP = np.zeros((nP,))
     pihat_pow1_PS = np.zeros((nS,))
     pihat_pow1_SD = np.zeros((nS,nD))
@@ -718,10 +718,10 @@ def CreateNetworkExample(ex=1):
 
     rhat = np.zeros((nC,))
 
-    rhat[0] = 2. # This is the risk function
+    rhat[0] = 2.
     rhat[1] = 1.5
 
-    ubar_1C = np.zeros((nC,))  # This holds the capacity. 
+    ubar_1C = np.zeros((nC,))
     ubar_CB = np.zeros((nC,nB))
     ubar_BP = np.zeros((nB,))
     ubar_PS = np.zeros((nB,))
@@ -733,8 +733,8 @@ def CreateNetworkExample(ex=1):
     #Helper Arguments
 
     #Index Lists for Fast Slicing
-    ind_C___C = np.arange(nC) # Creates array of integers of nC lenght) [0,1] This one is lenght 2
-    ind_CB__C = np.tile(np.arange(nC),(nB,1)).T.flatten() # Lenght 4
+    ind_C___C = np.arange(nC)
+    ind_CB__C = np.tile(np.arange(nC),(nB,1)).T.flatten()
     ind_CB__B = np.tile(np.arange(nB),nC)
     ind_CBD_C = np.tile(np.arange(nC),(nB*nD,1)).T.flatten()
     ind_CBD_B = np.tile(np.tile(np.arange(nB),(nD,1)).T.flatten(),nC)
@@ -745,12 +745,12 @@ def CreateNetworkExample(ex=1):
     ind_CBDR_R = np.tile(np.arange(nR),nC*nB*nD)
 
     #Alpha Values for Both Path and Link Computation
-    tile_1C = np.rollaxis(alpha_1C[ind_CB__C][None][None],2) # has link 1 and Link 2 Alpha values - twice
-    tile_CB = np.rollaxis(alpha_CB[ind_CB__C,ind_CB__B][None][None],2) # Link 3,4,5,6
-    tile_BP = np.rollaxis(alpha_BP[ind_CB__B][None][None],2) # BP Links twice
-    tile_PS = np.rollaxis(alpha_PS[ind_CB__B][None][None],2) # PS links twice
+    tile_1C = np.rollaxis(alpha_1C[ind_CB__C][None][None],2)
+    tile_CB = np.rollaxis(alpha_CB[ind_CB__C,ind_CB__B][None][None],2)
+    tile_BP = np.rollaxis(alpha_BP[ind_CB__B][None][None],2)
+    tile_PS = np.rollaxis(alpha_PS[ind_CB__B][None][None],2)
 
-    tile_1C2 = np.rollaxis(alpha_1C[ind_CBD_C][None],1) #the previous tiles twice
+    tile_1C2 = np.rollaxis(alpha_1C[ind_CBD_C][None],1)
     tile_CB2 = np.rollaxis(alpha_CB[ind_CBD_C,ind_CBD_B][None],1)
     tile_BP2 = np.rollaxis(alpha_BP[ind_CBD_B][None],1)
     tile_PS2 = np.rollaxis(alpha_PS[ind_CBD_B][None],1)
@@ -774,12 +774,10 @@ def CreateNetworkExample(ex=1):
     alpha_PSf = alpha_BPf*alpha_BP[ind_CBDR_B]
     alpha_SDf = alpha_PSf*alpha_PS[ind_CBDR_B]
     alpha_DRf = alpha_SDf*alpha_SD[ind_CBDR_B,ind_CBDR_D]
-    
-    
+
     #Mu
     mu = np.reshape(alpha_DRf*alpha_DR[ind_CBDR_D,ind_CBDR_R],(nC,nB,nD,nR))
 
-    
     return [nC,nB,nD,nR,
             alpha_CBx,alpha_BPx,alpha_PSx,alpha_SDx,alpha_DRx,
             alpha_CBf,alpha_BPf,alpha_PSf,alpha_SDf,alpha_DRf,
@@ -804,7 +802,9 @@ def CreateNetworkExample(ex=1):
             lambda_minus,lambda_plus]
 
 
-def CreateRandomNetwork(nC,nB,nD,nR,seed):
+def CreateRandomNetwork(nC,nB,nD,nR,seed): # This starts the RANDOM network - 
+# we aren't going to use this one
+# disregard until Line TBD
 
     np.random.seed(seed)
 

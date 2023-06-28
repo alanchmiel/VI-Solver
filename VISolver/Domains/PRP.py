@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 from VISolver.Domain import Domain
 
 
-class BloodBank(Domain):
+class PRP(Domain):
 
     def __init__(self,Network,alpha=2): # This is probably only really 
         self.UnpackNetwork(Network) # important for the random example... 
@@ -522,15 +522,15 @@ def CreateNetworkExample(ex=1):
     alpha_SD = np.zeros((nS,nD))
     alpha_DR = np.zeros((nD,nR))
 
-    alpha_1C[0] = .97 # Link 1
-    alpha_1C[1] = .99 # Link 2
+    alpha_1C[0] = 1 # Link 1
+    alpha_1C[1] = 1 # Link 2
     alpha_CB[0,0] = 1.# Link 3 C1 to B1
-    alpha_CB[0,1] = .99 # Link 4 C1 to B2
+    alpha_CB[0,1] = 1. # Link 4 C1 to B2
     alpha_CB[1,0] = 1.
     alpha_CB[1,1] = 1.
-    alpha_BP[0] = .92
-    alpha_BP[1] = .96
-    alpha_PS[0] = .98
+    alpha_BP[0] = 1.
+    alpha_BP[1] = 1.
+    alpha_PS[0] = 1.
     alpha_PS[1] = 1.
     alpha_SD[0,0] = 1.
     alpha_SD[0,1] = 1.
@@ -539,10 +539,10 @@ def CreateNetworkExample(ex=1):
     # last set of links has no effect? see formula on page 9 for link flows
     alpha_DR[0,0] = 1.
     alpha_DR[0,1] = 1.
-    alpha_DR[0,2] = .98
+    alpha_DR[0,2] = 1
     alpha_DR[1,0] = 1.
     alpha_DR[1,1] = 1.
-    alpha_DR[1,2] = .98
+    alpha_DR[1,2] = 1
 
     chat_pow1_1C = np.zeros((nC,)) # These are the coefficients for the 
     chat_pow1_CB = np.zeros((nC,nB)) # Operational costs - in the form
@@ -557,6 +557,49 @@ def CreateNetworkExample(ex=1):
     chat_pow2_PS = np.zeros((nS,))
     chat_pow2_SD = np.zeros((nS,nD))
     chat_pow2_DR = np.zeros((nD,nR))
+
+
+  # chat_pow1_1C[0] = 15.
+  # chat_pow2_1C[0] = 6.
+  # chat_pow1_1C[1] = 11.
+  # chat_pow2_1C[1] = 9.
+  # chat_pow1_CB[0,0] = 1.
+  # chat_pow2_CB[0,0] = .7
+  # chat_pow1_CB[0,1] = 1.
+  # chat_pow2_CB[0,1] = 1.2
+  # chat_pow1_CB[1,0] = 3.
+  # chat_pow2_CB[1,0] = 1.
+  # chat_pow1_CB[1,1] = 2.
+  # chat_pow2_CB[1,1] = .8
+  # chat_pow1_BP[0] = 2.
+  # chat_pow2_BP[0] = 2.5
+  # chat_pow1_BP[1] = 5.
+  # chat_pow2_BP[1] = 3.
+  # chat_pow1_PS[0] = 6.
+  # chat_pow2_PS[0] = .8
+  # chat_pow1_PS[1] = 3.
+  # chat_pow2_PS[1] = .5
+  # chat_pow1_SD[0,0] = 1.
+  # chat_pow2_SD[0,0] = .3
+  # chat_pow1_SD[0,1] = 2.
+  # chat_pow2_SD[0,1] = .5
+  # chat_pow1_SD[1,0] = 2.
+  # chat_pow2_SD[1,0] = .4
+  # chat_pow1_SD[1,1] = 1.
+  # chat_pow2_SD[1,1] = .6
+  # chat_pow1_DR[0,0] = 1.
+  # chat_pow2_DR[0,0] = .4
+  # chat_pow1_DR[0,1] = 2.
+  # chat_pow2_DR[0,1] = .8
+  # chat_pow1_DR[0,2] = 3.
+  # chat_pow2_DR[0,2] = .5
+  # chat_pow1_DR[1,0] = 1.
+  # chat_pow2_DR[1,0] = .7
+  # chat_pow1_DR[1,1] = 4.
+  # chat_pow2_DR[1,1] = .6
+  # chat_pow1_DR[1,2] = 5.
+  # chat_pow2_DR[1,2] = 1.1
+
 
     chat_pow1_1C[0] = 15.
     chat_pow2_1C[0] = 6.
@@ -606,26 +649,26 @@ def CreateNetworkExample(ex=1):
     zhat_SD = np.zeros((nS,nD))
     zhat_DR = np.zeros((nD,nR))
 
-    zhat_1C[0] = .8
-    zhat_1C[1] = .7
-    zhat_CB[0,0] = .6
-    zhat_CB[0,1] = .8
-    zhat_CB[1,0] = .6
-    zhat_CB[1,1] = .8
-    zhat_BP[0] = .5
-    zhat_BP[1] = .8
-    zhat_PS[0] = .4
-    zhat_PS[1] = .7
-    zhat_SD[0,0] = .3
-    zhat_SD[0,1] = .4
-    zhat_SD[1,0] = .3
-    zhat_SD[1,1] = .4
-    zhat_DR[0,0] = .7
-    zhat_DR[0,1] = .4
-    zhat_DR[0,2] = .5
-    zhat_DR[1,0] = .7
-    zhat_DR[1,1] = .4
-    zhat_DR[1,2] = .5
+    zhat_1C[0] = 0
+    zhat_1C[1] = 0
+    zhat_CB[0,0] = 0
+    zhat_CB[0,1] = 0
+    zhat_CB[1,0] = 0
+    zhat_CB[1,1] = 0
+    zhat_BP[0] = 0
+    zhat_BP[1] = 0
+    zhat_PS[0] = 0
+    zhat_PS[1] = 0
+    zhat_SD[0,0] = 0
+    zhat_SD[0,1] = 0
+    zhat_SD[1,0] = 0
+    zhat_SD[1,1] = 0
+    zhat_DR[0,0] = 0
+    zhat_DR[0,1] = 0
+    zhat_DR[0,2] = 0
+    zhat_DR[1,0] = 0
+    zhat_DR[1,1] = 0 
+    zhat_DR[1,2] = 0
 
     pihat_pow1_1C = np.zeros((nC,)) # This is the cost to add capacity
     pihat_pow1_CB = np.zeros((nC,nB)) # This could be used as a refinery cost add

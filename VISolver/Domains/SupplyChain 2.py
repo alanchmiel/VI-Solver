@@ -5,6 +5,7 @@ mpl.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.collections as mc
 import matplotlib.cm as cm
+
 from VISolver.Domain import Domain
 
 
@@ -30,16 +31,6 @@ class SupplyChain(Domain):
     def F(self,Data):
         return self.F_P2UP(Data)
 
-
-    def gap_rplus(self, X):
-       dFdX = self.F(X)
-       
-       Y = np.maximum(0,X - dFdX/self.alpha)
-       Z = X - Y
-
-       return np.dot(dFdX,Z) - self.alpha/2.*np.dot(Z,Z)
-
-       
     # Functions Used to Animate and Save Network Run to Movie File
 
     def FlowNormalizeColormap(self,Data,cmap):

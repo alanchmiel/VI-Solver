@@ -1,7 +1,7 @@
 import time
 import numpy as np
 
-from VISolver.Domains.BloodBank import BloodBank, CreateNetworkExample
+from VISolver.Domains.PRP import PRP, CreateNetworkExample
 #from VISolver.Domains.playground import playground, CreateNetworkExample
 
 from VISolver.Solvers.CashKarp import CashKarp
@@ -20,7 +20,7 @@ def Demo():
     # Define Network and Domain
     #Network = CreateRandomNetwork(nC=2,nB=2,nD=2,nR=2,seed=0)
     Network = CreateNetworkExample(ex=1)
-    Domain = BloodBank(Network=Network,alpha=2)
+    Domain = PRP(Network=Network,alpha=2)
 
     # Set Method
     Method = CashKarp(Domain=Domain,P=BoxProjection(lo=0),Delta0=1e-6)
